@@ -15,7 +15,6 @@ my $usestdout = true;
 
 use Time::localtime;
 use File::Basename;
-
 use Sys::Hostname;
 use Config;
 
@@ -60,6 +59,8 @@ if($usestdout) {
 print $file "Domain: ", $Config{mydomain};
 print $file "Hostname: ", hostname . $Config{mydomain};
 print $file "OS: ", $Config{osname};
+print $file "Version: ", $Config{osvers};
+print $file "uname: ", $Config{myuname};
 print $file "Arch: ", $Config{archname};
 print $file "Byteorder: ", $Config{byteorder};
 print $file "Afs?: ", $Config{afs};
