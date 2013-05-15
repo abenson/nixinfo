@@ -3,7 +3,6 @@
 # SETUP
 
 use strict;
-use warnings;
 
 use constant false => 0;
 use constant true  => 1;
@@ -39,7 +38,7 @@ if($usestdout == true) {
 
 	print "Saving results to ", $filename, ".";
 
-	open($file, ">", $filename) or die "Can't open file.";
+	open($file, ">$filename") or die "Can't open file.";
 }
 
 print $file "Domain: ", $Config{mydomain};
