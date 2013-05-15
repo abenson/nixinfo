@@ -25,11 +25,27 @@ my $version = "0.0.1-BETA";
 # BUILTIN GLOBALS
 $\ = "\n";
 
+# Subroutines
+
+sub printCommand
+{
+	my $fh = shift;
+	my $cmd = shift;
+
+	$\="";
+	open(my $hc, "$cmd|") or die "Can't cat hosts file.";
+	while(<$hc>) {
+		print $fh $_
+	}
+	close($hc);
+	$\="\n";
+}
+
 # MAIN
 print basename($0), ": ", $version;
 
 my $file;
-if($usestdout == true) {
+if($usestdout) {
 	$file = *STDOUT;
 } else {
 	my $tm = localtime;
@@ -47,8 +63,14 @@ print $file "OS: ", $Config{osname};
 print $file "Arch: ", $Config{archname};
 print $file "Byteorder: ", $Config{byteorder};
 print $file "Afs?: ", $Config{afs};
+print $file "Contents of hosts file: ";
+printCommand($file, $Config{hostcat});
+print $file "Contents of passwd file: ";
+printCommand($file, $Config{passcat});
+print $file "Process list: ";
+printCommand($file, "ps -ef");
 
-if($usestdout == false) {
+unless($usestdout) {
 	close($file);
 }
 
