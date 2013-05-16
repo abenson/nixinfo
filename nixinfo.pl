@@ -25,20 +25,25 @@ my $version = "0.0.1-BETA";
 $\ = "\n";
 $/ = "\n";
 
-# Subroutines
+# SUBROUTINES
 
 sub printCommand
 {
 	my $fh = shift;
 	my $cmd = shift;
+	my $content = slurpCommand($cmd);
+	print $fh $content
+}
 
-	$\="";
-	open(my $hc, "$cmd|") or die "Can't cat hosts file.";
-	while(<$hc>) {
-		print $fh $_
-	}
+sub slurpCommand
+{
+	my $cmd = shift;
+	open(my $hc, "$cmd|") or die "Can't run $cmd.";
+	$/="";
+	my $slurp = <$hc>;
 	close($hc);
-	$\="\n";
+	$/="\n";
+	return $slurp;
 }
 
 # MAIN
