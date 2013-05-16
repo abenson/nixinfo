@@ -75,7 +75,10 @@ printCommand($file, $Config{hostcat});
 print $file "Contents of passwd file: ";
 printCommand($file, $Config{passcat});
 print $file "Process list: ";
-printCommand($file, "ps -ef");
+my $content = slurpCommand("ps -A -o 'user ruser group rgroup uid ruid gid rgid pid ppid pgid sid pri opri pcpu pmem vsz rss osz nice class time etime stime f s c lwp nlwp psr tty addr wchan fname comm args
+'");
+$content =~ s/ +/,/g;
+print $file $content;
 
 unless($usestdout) {
 	close($file);
