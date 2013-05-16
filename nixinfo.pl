@@ -23,6 +23,7 @@ my $version = "0.0.1-BETA";
 
 # BUILTIN GLOBALS
 $\ = "\n";
+$/ = "\n";
 
 # Subroutines
 
