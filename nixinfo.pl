@@ -122,6 +122,24 @@ sub getKernelModules
 	}
 }
 
+sub getInterfaces
+{
+	$output = shift;
+	print $output "Interfaces: ";
+	printCommand($output, "ifconfig -a");
+}
+
+sub getRoutes
+{
+	$output = shift;
+	print $output "Routes: ";
+	if($Config{osname} eq "linux") {
+		printCommand($output, "route -n");
+	} elsif ($Config{osname} eq "solaris") {
+		printCommand($output, "netstat -nr");
+	}
+}
+
 # MAIN
 print basename($0), ": ", $version;
 
@@ -141,6 +159,8 @@ getHostInfo($file);
 getProcesses($file);
 #getFiles($file);
 getKernelModules($file);
+getInterfaces($file);
+getRoutes($file);
 
 unless($usestdout) {
 	close($file);
