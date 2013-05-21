@@ -2,14 +2,12 @@
 
 # SETUP
 
-use strict;
-
 use constant false => 0;
 use constant true  => 1;
 
 # CONFIG
 
-my $usestdout = true;
+$usestdout = true;
 
 # INCLUDES
 
@@ -19,7 +17,7 @@ use Sys::Hostname;
 use Config;
 
 # GLOBALS
-my $version = "0.0.1-BETA";
+$version = "0.0.1-BETA";
 
 # BUILTIN GLOBALS
 $\ = "\n";
@@ -29,19 +27,19 @@ $/ = "\n";
 
 sub printCommand
 {
-	my $fh = shift;
-	my $cmd = shift;
-	my $content = slurpCommand($cmd);
+	$fh = shift;
+	$cmd = shift;
+	$content = slurpCommand($cmd);
 	print $fh $content
 }
 
 sub slurpCommand
 {
-	my $cmd = shift;
-	open(my $hc, "$cmd|") or die "Can't run $cmd.";
+	$cmd = shift;
+	open(HC, "$cmd|") or die "Can't run $cmd.";
 	$/="";
-	my $slurp = <$hc>;
-	close($hc);
+	$slurp = <HC>;
+	close(HC);
 	$/="\n";
 	return $slurp;
 }
@@ -49,12 +47,11 @@ sub slurpCommand
 # MAIN
 print basename($0), ": ", $version;
 
-my $file;
 if($usestdout) {
 	$file = *STDOUT;
 } else {
-	my $tm = localtime;
-	my $filename = sprintf("results-%s%s%s-%s%s.log", 
+	$tm = localtime;
+	$filename = sprintf("results-%s%s%s-%s%s.log", 
 		$tm->year+1900, $tm->mon+1, $tm->mday, $tm->hour, $tm->min);
 
 	print "Saving results to ", $filename, ".";
@@ -75,7 +72,7 @@ printCommand($file, $Config{hostcat});
 print $file "Contents of passwd file: ";
 printCommand($file, $Config{passcat});
 print $file "Process list: ";
-my $content = slurpCommand("ps -A -o 'user ruser group rgroup uid ruid gid rgid pid ppid pgid sid pri opri pcpu pmem vsz rss osz nice class time etime stime f s c lwp nlwp psr tty addr wchan fname comm args
+$content = slurpCommand("ps -A -o 'user ruser group rgroup uid ruid gid rgid pid ppid pgid sid pri opri pcpu pmem vsz rss osz nice class time etime stime f s c lwp nlwp psr tty addr wchan fname comm args
 '");
 $content =~ s/ +/,/g;
 print $file $content;
