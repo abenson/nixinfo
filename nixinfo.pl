@@ -77,6 +77,37 @@ $content = slurpCommand("ps -A -o 'user ruser group rgroup uid ruid gid rgid pid
 $content =~ s/ +/,/g;
 print $file $content;
 
+
+@dirs = ( "/" );
+
+$\ = "\n";
+
+while($dir = shift(@dirs)) {
+	opendir(DH, $dir);
+	while($name = readdir(DH)) {
+		unless($name =~ /^\.\.?/ || $file =~ /^\/proc/) {
+			if($dir eq "/") {
+				$path = $dir . $name;
+			} else {
+				$path = $dir . "/" . $name;
+			}
+			if(-d $path) {
+				push(@dirs, $path);
+			} elsif (-f $path) {
+				($dev,$ino,$mode,$nlink,$uid,$gid,$rdev,$size,
+       $atime,$mtime,$ctime,$blksize,$blocks) = stat($path);
+				print $file "Name: $path";
+				print $file "  Owner: $uid";
+				print $file "  Group: $gid";
+				printf $file "  Permissions: %04o\n", $mode & 07777;
+				print $file "  Size: $size";
+				print $file "  MAC: $mtime, $atime, $ctime";
+			}
+		}
+	}
+	closedir(DH);
+}
+
 unless($usestdout) {
 	close($file);
 }
