@@ -38,7 +38,9 @@ sub tabulateCommand
 	$fh = shift;
 	$cmd = shift;
 	$content = slurpCommand($cmd);
-	$content =~ s/ +/,/g;
+	$content =~ s/^ +//g;
+	$content =~ s/ +$//g;
+	$content =~ s/ +/;/g;
 	print $fh $content;
 }
 
