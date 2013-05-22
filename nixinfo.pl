@@ -68,10 +68,21 @@ sub getHostInfo
 	print $file "Arch: ", $Config{archname};
 	print $file "Byteorder: ", $Config{byteorder};
 	print $file "Afs?: ", $Config{afs};
+}
+
+sub getHosts
+{
 	print $file "Contents of hosts file: ";
 	printCommand($file, $Config{hostcat});
+}
+
+sub getPasswordFile
+{
 	print $file "Contents of passwd file: ";
 	printCommand($file, $Config{passcat});
+	if(-f "/etc/shadow") {
+		printCommand($file, "cat /etc/shadow");
+	}
 }
 
 sub getFiles
