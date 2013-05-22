@@ -180,6 +180,8 @@ if($usestdout) {
 }
 
 getHostInfo($file);
+getHosts($file);
+getPasswordFile($file);
 getProcesses($file);
 #getFiles($file);
 getKernelModules($file);
