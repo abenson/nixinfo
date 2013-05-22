@@ -153,6 +153,17 @@ sub getRoutes
 	}
 }
 
+sub getConnections
+{
+	$output = shift;
+	print $output "Connections: ";
+	if($Config{osname} eq "linux") {
+		printCommand($output, "netstat -pluant");
+	} elsif ($Config{osname} eq "solaris") {
+		printCommand($output, "netstat -an -f inet");
+	}
+}
+
 # MAIN
 print basename($0), ": ", $version;
 
@@ -174,6 +185,7 @@ getProcesses($file);
 getKernelModules($file);
 getInterfaces($file);
 getRoutes($file);
+getConnections($file);
 
 unless($usestdout) {
 	close($file);
