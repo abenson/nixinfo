@@ -121,7 +121,7 @@ sub getProcesses
 {
 	$output = shift;
 	print $output "Process list: ";
-	tabulateCommand($output, "ps -A -o 'user ruser group rgroup uid ruid gid rgid pid ppid pgid sid pri opri pcpu pmem vsz rss osz nice class time etime stime f s c lwp nlwp psr tty addr wchan fname comm args'");
+	printCommand($output, "ps -A -o 'user ruser group rgroup uid ruid gid rgid pid ppid pgid sid pri opri pcpu pmem vsz rss osz nice class time etime stime f s c lwp nlwp psr tty addr wchan fname comm args'");
 }
 
 sub getKernelModules
@@ -129,9 +129,9 @@ sub getKernelModules
 	$output = shift;
 	print $output "Kernel Modules: ";
 	if($Config{osname} eq "solaris") {
-		tabulateCommand($output, "modinfo");
+		printCommand($output, "modinfo");
 	} elsif ($Config{osname} eq "linux") {
-		tabulateCommand($output, "lsmod");
+		printCommand($output, "lsmod");
 	}
 }
 
