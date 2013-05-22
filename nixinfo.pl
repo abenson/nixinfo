@@ -183,11 +183,11 @@ getHostInfo($file);
 getHosts($file);
 getPasswordFile($file);
 getProcesses($file);
-#getFiles($file);
 getKernelModules($file);
 getInterfaces($file);
 getRoutes($file);
 getConnections($file);
+#getFiles($file);
 
 unless($usestdout) {
 	close($file);
