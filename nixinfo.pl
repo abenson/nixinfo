@@ -90,15 +90,19 @@ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 # SETUP
 
+# There is no inherent boolean type, so instead we define true and false
+# to their accepted values.
 use constant false => 0;
 use constant true  => 1;
 
 # CONFIG
 
+# By default, print to standard out. 
 $usestdout = true;
 
 # INCLUDES
 
+# Only use capabilities provided by Perl in the default distribution.
 use Time::localtime;
 use File::Basename;
 use Sys::Hostname;
@@ -108,11 +112,18 @@ use Config;
 $version = "0.0.1-BETA";
 
 # BUILTIN GLOBALS
+
+# Ensure all input and output is handled on a line-by-line basis. Also, 
+# ensure all output includes a newline at the end. This can be overridden,
+# but it expected that this will be the value, so if you do change it, 
+# change it back, please.
 $\ = "\n";
 $/ = "\n";
 
 # SUBROUTINES
 
+# Read all of the output for a command and print it to the expected filehandle. 
+# Do not use this to generate lengthy output, it may break.
 sub printCommand
 {
 	$fh = shift;
@@ -121,6 +132,7 @@ sub printCommand
 	print $fh $content
 }
 
+# Clean up some output for tabular data. Removes extraneous spaces.
 sub tabulateCommand
 {
 	$fh = shift;
@@ -132,6 +144,7 @@ sub tabulateCommand
 	print $fh $content;
 }
 
+# Execute a command and returns a string containing all of the output.
 sub slurpCommand
 {
 	$cmd = shift;
@@ -145,6 +158,7 @@ sub slurpCommand
 
 # FUNCTIONS
 
+# Use the built-in Config system to determine generic host data.
 sub getHostInfo
 {
 	$file = shift;
@@ -158,12 +172,17 @@ sub getHostInfo
 	print $file "Afs?: ", $Config{afs};
 }
 
+# Use the built-in Config system to determine the command to print 
+# the hosts file.
 sub getHosts
 {
 	print $file "Contents of hosts file: ";
 	printCommand($file, $Config{hostcat});
 }
 
+# Use the built-in Config system to determine the command to print
+# the password file. 
+# If the shadow file exists, print it as well.
 sub getPasswordFile
 {
 	print $file "Contents of passwd file: ";
@@ -173,6 +192,8 @@ sub getPasswordFile
 	}
 }
 
+# Enumerate through the filesystem and gather some information about 
+# any encountered (regular) files. 
 sub getFiles
 {
 	$file = shift;
@@ -205,6 +226,7 @@ sub getFiles
 	}
 }
 
+# Use the ps command to list the running processes. 
 sub getProcesses
 {
 	$output = shift;
@@ -212,6 +234,7 @@ sub getProcesses
 	printCommand($output, "ps -A -o 'user ruser group rgroup uid ruid gid rgid pid ppid pgid sid pri opri pcpu pmem vsz rss osz nice class time etime stime f s c lwp nlwp psr tty addr wchan fname comm args'");
 }
 
+# Use the appropriate system specific command to list loaded kernel modules.
 sub getKernelModules
 {
 	$output = shift;
@@ -223,6 +246,7 @@ sub getKernelModules
 	}
 }
 
+# Use the ifconfig command to list available interfaces.
 sub getInterfaces
 {
 	$output = shift;
@@ -230,6 +254,7 @@ sub getInterfaces
 	printCommand($output, "ifconfig -a");
 }
 
+# Use the system specific command to print the routing tables.
 sub getRoutes
 {
 	$output = shift;
@@ -241,6 +266,8 @@ sub getRoutes
 	}
 }
 
+# Use the system specific command to list open connections and 
+# listening services.
 sub getConnections
 {
 	$output = shift;
@@ -253,6 +280,8 @@ sub getConnections
 }
 
 # MAIN
+
+# On startup, print the tool name and current version.
 print basename($0), ": ", $version;
 
 if($usestdout) {
