@@ -243,6 +243,8 @@ sub getKernelModules
 		printCommand($output, "modinfo");
 	} elsif ($Config{osname} eq "linux") {
 		printCommand($output, "lsmod");
+	} else {
+		print $output "Not implemented for this platform: $Config{osname}";
 	}
 }
 
@@ -263,6 +265,8 @@ sub getRoutes
 		printCommand($output, "route -n");
 	} elsif ($Config{osname} eq "solaris") {
 		printCommand($output, "netstat -nr");
+	} else {
+		print $output "Not implemented for this platform: $Config{osname}";
 	}
 }
 
@@ -276,6 +280,8 @@ sub getConnections
 		printCommand($output, "netstat -pluant");
 	} elsif ($Config{osname} eq "solaris") {
 		printCommand($output, "netstat -an -f inet");
+	} else {
+		print $output "Not implemented for this platform: $Config{osname}";
 	}
 }
 
