@@ -1,5 +1,91 @@
 #!/usr/bin/env perl
 
+=head1 NAME
+
+nixinfo - Gather System Information for UNIX and UNIX-like systems.
+
+=head1 SYNPOSIS
+
+nixinfo is a cross-platform UNIX system information collection tool.
+
+=head1 DESCRIPTION
+
+nixinfo is designed to be compatible with many different UNIX systems, with
+the only requirement being a functional Perl 5.x installation. 
+
+The following host information is currently collected:
+
+=over 3
+
+=item * Hostname
+
+=item * Domain
+
+=item * OS Name
+
+=item * OS Version
+
+=item * uname
+
+=item * Archiecture
+
+=item * Endianness
+
+=item * Andrew File System status
+
+=item * Contents of hosts file
+
+=item * Contents of /etc/passwd, and if available, /etc/shadow
+
+=item * Name, Owner, Group, Perms, Size, and MAC times for every file
+
+=item * All available details for every running process
+
+=item * List of loaded kernel modules
+
+=item * List of available network interfaces
+
+=item * Routing table
+
+=item * Current connections, listening services
+
+=back 
+
+=head1 TODO
+
+The following information will be collected in the future
+
+=over 4
+
+=item * A hash of the file on disk
+
+=back
+
+=head1 SEE ALSO
+
+TBD
+
+=head1 COPYRIGHT
+
+Copyright (c) 2013 Andrew Benson, et al
+All rights reserved.
+
+Redistribution and use in source and binary forms are permitted
+provided that the above copyright notice and this paragraph are
+duplicated in all such forms and that any documentation,
+advertising materials, and other materials related to such
+distribution and use acknowledge that the software was developed
+by Andrew Benson and its other contributors.  Neither the name of 
+Andrew Benson nor any other contributors may be used to endorse 
+or promote products derived from this software without specific 
+prior written permission.
+
+THIS SOFTWARE IS PROVIDED ``AS IS'' AND WITHOUT ANY EXPRESS OR
+IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+
+=cut
+
 # SETUP
 
 use constant false => 0;
