@@ -57,7 +57,9 @@ The following information will be collected in the future
 
 =over 4
 
-=item * A hash of the file on disk
+=item * A hash of any regular files on disk
+
+=item * Identify special files (pipes, symlinks, etc)
 
 =back
 
