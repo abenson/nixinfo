@@ -187,7 +187,7 @@ getKernelModules($file);
 getInterfaces($file);
 getRoutes($file);
 getConnections($file);
-#getFiles($file);
+getFiles($file);
 
 unless($usestdout) {
 	close($file);
