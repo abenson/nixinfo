@@ -10,7 +10,7 @@ nixinfo is a cross-platform UNIX system information collection tool.
 # DESCRIPTION
 
 nixinfo is designed to be compatible with many different UNIX systems, with
-the only requirement being a functional Perl 5.x installation. 
+the only requirement being a functional Perl (>= 5.005) installation. 
 
 The following host information is currently collected:
 
