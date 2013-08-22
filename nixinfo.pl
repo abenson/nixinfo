@@ -290,6 +290,11 @@ sub getConnections
 # On startup, print the tool name and current version.
 print basename($0), ": ", $version;
 
+if($< != 0) {
+	print "You must be running as root to execute this command.";
+	exit();
+}
+
 if($usestdout) {
 	$file = *STDOUT;
 } else {
