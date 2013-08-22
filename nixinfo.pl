@@ -188,7 +188,10 @@ sub getPasswordFile
 	print $file "Contents of passwd file: ";
 	printCommand($file, $Config{passcat});
 	if(-f "/etc/shadow") {
+		print $file "Contents of shadow file: ";
 		printCommand($file, "cat /etc/shadow");
+	} else {
+		print $file "Shadow unknown or non-existent on this system.";
 	}
 }
 
