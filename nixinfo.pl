@@ -211,7 +211,10 @@ sub getFiles
 				} else {
 					$path = $dir . "/" . $name;
 				}
-				if(-d $path) {
+				if(-l $path) {
+					print $file "Name: $path";
+					print $file "  Link: " . readlink($path);
+				} elsif (-d $path) {
 					push(@dirs, $path);
 				} elsif (-f $path) {
 					($dev,$ino,$mode,$nlink,$uid,$gid,$rdev,$size,
