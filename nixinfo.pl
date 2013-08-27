@@ -212,14 +212,14 @@ sub getFiles
 					$path = $dir . "/" . $name;
 				}
 				if(-l $path) {
-					print $file "Name: $path";
-					print $file "  Link: " . readlink($path);
+					print $file "Link: $path";
+					print $file "  Target: " . readlink($path);
 				} elsif (-d $path) {
 					push(@dirs, $path);
 				} elsif (-f $path) {
 					($dev,$ino,$mode,$nlink,$uid,$gid,$rdev,$size,
 	       $atime,$mtime,$ctime,$blksize,$blocks) = stat($path);
-					print $file "Name: $path";
+					print $file "File: $path";
 					print $file "  Owner: $uid";
 					print $file "  Group: $gid";
 					printf $file "  Permissions: %04o\n", $mode & 07777;
