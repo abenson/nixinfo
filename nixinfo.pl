@@ -109,7 +109,7 @@ use Sys::Hostname;
 use Config;
 
 # GLOBALS
-$version = "0.0.27";
+$version = "0.0.31";
 
 # BUILTIN GLOBALS
 
